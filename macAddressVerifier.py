@@ -1,4 +1,4 @@
-def macAddressCleaner(macAddress):
+def macAddressCleaner(macAddress, delimiter, spaces):
     macAddress = macAddress.lower() 
     macAddressList = []
     macAddressList[:0] = macAddress #Adds characters in macAddress to a list
@@ -15,19 +15,46 @@ def macAddressCleaner(macAddress):
         return
     for char in macAddressList:
         if char.isalnum(): #chacks if character in mac addresslist is alphanumer
-            print(char + ' is gucci!')
+            #print(char + ' is gucci!')
             if char.isalpha() == True: #nested if that activates if the char is ALPHA
                 if ord(char) >= 97 and ord(char) <= 102: #checks if ALPHA is  between the letters lower case a - f
-                    print(char + ' is a valid character')
+                    #print(char + ' is a valid character')
+                    continue
                 else:
                     print(char + ' is not a valid character')
                     return
         else:
             print(char + ' is not a valid MAC Address character')
             return
+    if ord(delimiter) == 58 or ord(delimiter) == 46 or ord(delimiter) == 45: #This if statement checks if you're using a valid delimiter
+        #print(delimiter +  ' is a valid delimiter')
+        if spaces == "2": #This if will then insert users selecte3d delimitter into the MAC List every 2 spaces
+            #print('You picked every 2 spaces')
+            macAddressList.insert(2, delimiter)
+            macAddressList.insert(5, delimiter)
+            macAddressList.insert(8, delimiter)
+            macAddressList.insert(11, delimiter)
+            macAddressList.insert(14, delimiter)
+            #print(macAddressList)
+        elif spaces == "4":
+            #print('You picked every 4 spaces')
+            macAddressList.insert(4, delimiter)
+            macAddressList.insert(9, delimiter)
+            #print(macAddressList)
+        else:
+            print('Please choose either 2 or 4 spaces')
+            return
+    else:
+        print(delimiter + ' is not a valid delimiter')
+        return
+    return ''.join(macAddressList)
+
 while True:
     print('Enter MAC Address: ')
     macAddress = input()
-    print('Please choose a delimiter (, or : or -)')
+    print('Please choose a delimiter (. or : or -)')
     delimiter = input()
-    macAddressCleaner(macAddress)
+    print('Place a delimitter every 2 or 4  characters?')
+    spaces = input()
+    cleanedMacAddress = macAddressCleaner(macAddress, delimiter, spaces)
+    print(cleanedMacAddress)
